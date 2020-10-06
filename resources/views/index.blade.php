@@ -40,7 +40,7 @@
 <!doctype html>
 
 <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
 
     <title>Penggajian Karyawan</title>
@@ -76,13 +76,36 @@
         </header>
         <main id="main-container">
             <div class="content content-full">
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="modal-slideup" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-slideup" role="document">
+                        <div class="modal-content">
+                            <div class="block block-themed block-transparent mb-0">
+                                <div class="block-header bg-pulse">
+                                    <h3 class="block-title">Are you sure to delete this ?</h3>
+                                    <div class="block-options">
+                                        <a id="btn-delete" href="#" class="btn btn-alt-success">
+                                            <i class="fa fa-check"></i>
+                                        </a>
+                                        <button type="button" class="btn btn-alt-danger" data-dismiss="modal">
+                                            <i class="fa fa-close"></i>
+                                        </button>
+                                    </div>
+                                </div>
 
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
 
 
                 <div class="block">
                     <div class="block-header block-header-default bg-gray-light">
                         <h3 class="block-title">Data Penggajian <small class="text-primary font-w600">Karyawan</small></h3>
-
+                        <button type="button" class="btn-block-option text-black ml-1" onclick="location.href='{{ url('/karyawan/tambah/') }}'">
+                            <i class="si si-plus"></i>
+                        </button>
+                        <button type="button" class="btn-block-option text-black ml-1" data-toggle="block-option" data-action="content_toggle"></button>
                     </div>
                     <div class="block-content block-content-full">
                         <table class="table table-bordered table-hover table-vcenter js-dataTable-full-pagination">
@@ -95,6 +118,7 @@
                                     <th class="text-center"><small>Tanggal Lahir</small></th>
                                     <th class="text-center"><small>Jabatan</small></th>
                                     <th class="text-center"><small>Gaji</small></th>
+                                    <th class="text-center"><small>Options</small></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -107,6 +131,16 @@
                                     <td class="">{{ $p->karyawan_tgl }}</td>
                                     <td class="">{{ $p->jabatan_nama }}</td>
                                     <td class="">{{ $p->jabatan_gaji }}</td>
+                                    <td class="text-center">
+                                            <button type="button" class="btn btn-sm btn-secondary" data-toggle="tooltip" 
+                                            onclick="location.href='/karyawan/edit/{{ $p->karyawan_id }}'">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-sm btn-secondary" data-toggle="tooltip" 
+                                            onclick="deleteConfirm('/karyawan/hapus/{{ $p->karyawan_id }}')">
+                                                <i class="fa fa-trash"></i>
+                                            </button>
+                                        </td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -129,7 +163,12 @@
             </div>
         </footer>
     </div>
-
+    <script>
+        function deleteConfirm(url) {
+            $('#btn-delete').attr('href', url);
+            $('#deleteModal').modal();
+        }
+    </script>
     <script src="{{ url('/assets/') }}/js/core/jquery.min.js"></script>
     <script src="{{ url('/assets/') }}/js/core/popper.min.js"></script>
     <script src="{{ url('/assets/') }}/js/core/bootstrap.min.js"></script>

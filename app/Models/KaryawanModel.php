@@ -20,4 +20,5 @@ class KaryawanModel extends Model
 
 		return $statement->fetchAll(PDO::FETCH_OBJ);
 }
+
 }
