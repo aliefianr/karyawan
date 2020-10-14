@@ -25,27 +25,61 @@
     <!-- Page Container -->
     <div id="page-container" class="sidebar-inverse side-scroll page-header-fixed page-header-modern main-content-boxed">
 
+    <!-- Header -->
     <header id="page-header">
-            <div class="content-header">
-                <div class="content-header-section">
-
-                    <div class="content-header-item">
-                        <b href="index.html">
-                            KELOMPOK 5
-                        </b>
-
-                    </div>
-
-                </div>
-                <div class="content-header-section d-none d-lg-block">
+        <!-- Header Content -->
+        <div class="content-header">
+            <!-- Left Section -->
+            <div class="content-header-section">
+                <!-- Logo -->
+                <div class="content-header-item">
+                <a class="link-effect font-w700" href="#">
+                                            <i class="si si-graph"></i>
+                                            <span class="font-size-xl text-primary-dark"><i>Penggajian </span><span class="font-size-xl">Karyawan</i></span>
+                                        </a>
 
                 </div>
-                <div class="content-header-section">
-
-                </div>
+                <!-- END Logo -->
             </div>
+        
+            <div class="content-header-section d-none d-lg-block">
+            
+            </div>
+            <!-- END Middle Section -->
 
-        </header>
+            <!-- Right Section -->
+            <div class="content-header-section">
+                <a class="align-middle link-effect text-primary-dark font-w600" href="#">{{Session::get('nama')}}</a>
+                <button type="button" class="btn btn-rounded btn-dual-secondary" onclick="location.href='{{ url('/utama/') }}'">
+                    <i class="si si-home"></i>
+                </button>
+                <button type="button" class="btn btn-rounded btn-dual-secondary" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="si si-chart"></i><i class="fa fa-angle-down ml-1"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right min-width-150" aria-labelledby="page-header-user-dropdown">
+                    <a class="dropdown-item" href="{{ url('/admin/edit/') }}/{{Session::get('id_a')}}">
+                        <i class="si si-user mr-5"></i> Profile
+                    </a>
+                    <a class="dropdown-item" href="{{ url('/karyawan/tampil') }}">
+                        <i class="si si-docs mr-5"></i> Karyawan
+                    </a>
+                    <a class="dropdown-item" href="{{ url('/jabatan/') }}">
+                        <i class="si si-note mr-5"></i> Jabatan
+                    </a>
+                    </div>
+                <!-- Layout API, functionality initialized in Codebase() -> uiApiLayout() -->
+                
+                <button type="button" class="btn btn-circle btn-dual-secondary" onclick="location.href='{{ url('/login/') }}'">
+                    <i class="si si-logout"></i>
+                </button>
+                <!-- END Open Search Section -->
+            </div>
+            <!-- END Right Section -->
+        </div>
+        <!-- END Header Content -->
+
+    </header>
+    <!-- END Header -->
         <!-- Main Container -->
         <main id="main-container">
             
@@ -60,7 +94,7 @@
                                 <h3 class="block-title text-black font-w600">Edit Data Karyawan</h3>
                                 <div class="block-options">
                                     <button type="button" class="btn-block-option text-black" data-toggle="block-option" data-action="content_toggle"></button>
-                                    <button type="button" class="btn-block-option text-black" onclick="location.href='{{ url('/karyawan/') }}'">
+                                    <button type="button" class="btn-block-option text-black" onclick="location.href='{{ url('/karyawan/tampil/') }}'">
                                         <i class="si si-close"></i>
                                     </button>
                                 </div>
@@ -114,10 +148,9 @@
                                         <div class="form-material">
                                                 <select class="form-control" id="k_jabatan" name="k_jabatan">
                                                     <option value="">Pilih..</option>
-                                                    <option value="1201"  @if($p->jabatan_id == "1201") selected @endif >Head Manager - Rp.20.000.000,-</option>
-                                                    <option value="1202 " @if($p->jabatan_id == "1202") selected @endif >Designer - Rp.10.000.000,-</option>
-                                                    <option value="1203" @if($p->jabatan_id == "1203") selected @endif >Android Developer - Rp.10.000.000,-</option>
-                                                    <option value="1204" @if($p->jabatan_id == "1204") selected @endif >Consultant - Rp.15.000.000,-</option>
+                                                    @foreach($jabatan as $j)
+                                                    <option value="{{$j->jabatan_id}}"  @if($j->jabatan_id == $p->jabatan_id) selected @endif>{{$j->jabatan_nama}} - Rp.{{$j->jabatan_gaji}},-</option>
+                                                    @endforeach
                                                 </select>
                                                 <label for="k_jabatan">Jabatan</label>
                                             </div>

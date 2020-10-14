@@ -1,42 +1,4 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-	<title>Views Data Gaji Karyawan</title>
-</head>
-<body>
- 
-	<h3>Data Karyawan</h3>
 
-	<br/>
-	<br/>
- 
-	<table border="1">
-		<tr>
-            <th>ID</th>
-			<th>Nama</th>
-			<th>Gender</th>
-			<th>Alamat</th>
-			<th>Tanggal Lahir</th>
-            <th>Jabatan</th>
-            <th>Gaji</th>
-		</tr>
-		@foreach($info as $p)
-		<tr>
-			<td>{{ $p->karyawan_id }}</td>
-			<td>{{ $p->karyawan_nama }}</td>
-			<td>{{ $p->karyawan_gender }}</td>
-            <td>{{ $p->karyawan_alamat }}</td>
-            <td>{{ $p->karyawan_tgl }}</td>
-            <td>{{ $p->jabatan_nama }}</td>
-            <td>{{ $p->jabatan_gaji }}</td>
-            <a href="{{ url('/path/uri') }}">Link Text</a>
-		</tr>
-		@endforeach
-	</table>
- 
- 
-</body>
-</html> -->
 <!doctype html>
 
 <head>
@@ -53,27 +15,61 @@
 
 <body>
     <div id="page-container" class="sidebar-inverse side-scroll page-header-fixed page-header-modern main-content-boxed">
-        <header id="page-header">
-            <div class="content-header">
-                <div class="content-header-section">
-
-                    <div class="content-header-item">
-                        <b href="index.html">
-                            KELOMPOK 5
-                        </b>
-
-                    </div>
-
-                </div>
-                <div class="content-header-section d-none d-lg-block">
-
-                </div>
-                <div class="content-header-section">
+       <!-- Header -->
+    <header id="page-header">
+        <!-- Header Content -->
+        <div class="content-header">
+            <!-- Left Section -->
+            <div class="content-header-section">
+                <!-- Logo -->
+                <div class="content-header-item">
+                <a class="link-effect font-w700" href="#">
+                                            <i class="si si-graph"></i>
+                                            <span class="font-size-xl text-primary-dark"><i>Penggajian </span><span class="font-size-xl">Karyawan</i></span>
+                                        </a>
 
                 </div>
+                <!-- END Logo -->
             </div>
+        
+            <div class="content-header-section d-none d-lg-block">
+            
+            </div>
+            <!-- END Middle Section -->
 
-        </header>
+            <!-- Right Section -->
+            <div class="content-header-section">
+                <a class="align-middle link-effect text-primary-dark font-w600" href="#">{{Session::get('nama')}}</a>
+                <button type="button" class="btn btn-rounded btn-dual-secondary" onclick="location.href='{{ url('/utama/') }}'">
+                    <i class="si si-home"></i>
+                </button>
+                <button type="button" class="btn btn-rounded btn-dual-secondary" id="page-header-user-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="si si-chart"></i><i class="fa fa-angle-down ml-1"></i>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right min-width-150" aria-labelledby="page-header-user-dropdown">
+                    <a class="dropdown-item" href="{{ url('/admin/edit/') }}/{{Session::get('id_a')}}">
+                        <i class="si si-user mr-5"></i> Profile
+                    </a>
+                    <a class="dropdown-item" href="{{ url('/karyawan/tampil') }}">
+                        <i class="si si-docs mr-5"></i> Karyawan
+                    </a>
+                    <a class="dropdown-item" href="{{ url('/jabatan/') }}">
+                        <i class="si si-note mr-5"></i> Jabatan
+                    </a>
+                    </div>
+                <!-- Layout API, functionality initialized in Codebase() -> uiApiLayout() -->
+                
+                <button type="button" class="btn btn-circle btn-dual-secondary" onclick="location.href='{{ url('/login/') }}'">
+                    <i class="si si-logout"></i>
+                </button>
+                <!-- END Open Search Section -->
+            </div>
+            <!-- END Right Section -->
+        </div>
+        <!-- END Header Content -->
+
+    </header>
+    <!-- END Header -->
         <main id="main-container">
             <div class="content content-full">
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="modal-slideup" aria-hidden="true">
@@ -130,7 +126,7 @@
                                     <td class="">{{ $p->karyawan_alamat}}</td>
                                     <td class="">{{ $p->karyawan_tgl }}</td>
                                     <td class="">{{ $p->jabatan_nama }}</td>
-                                    <td class="">{{ $p->jabatan_gaji }}</td>
+                                    <td class="">Rp.{{ $p->jabatan_gaji }},-</td>
                                     <td class="text-center">
                                             <button type="button" class="btn btn-sm btn-secondary" data-toggle="tooltip" 
                                             onclick="location.href='/karyawan/edit/{{ $p->karyawan_id }}'">
